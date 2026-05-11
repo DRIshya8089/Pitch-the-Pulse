@@ -82,27 +82,6 @@ Search for `// ✏️` comments — every editable field is marked.
 
 ---
 
-## 🌐 Deployment (Free Hosting)
-
-### Vercel (recommended — auto-deploys on push)
-```bash
-npm i -g vercel
-vercel
-```
-
-### Netlify
-1. `npm run build`
-2. Drag the `dist/` folder to [app.netlify.com/drop](https://app.netlify.com/drop)
-
-### GitHub Pages
-```bash
-npm install --save-dev gh-pages
-# Add to package.json scripts: "deploy": "gh-pages -d dist"
-npm run build && npm run deploy
-```
-
----
-
 ## 🛠️ Tech Stack
 
 | Tool | Purpose |
