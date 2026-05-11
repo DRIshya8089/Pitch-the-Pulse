@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Syne:wght@700;800&display=swap');
+
+/* ── Tokens (light mode) ─────────────────────────── */
+:root {
+  --white:        #ffffff;
+  --off-white:    #f7f9fb;
+  --accent:       #3b82f6;
+  --accent-light: #dbeafe;
+  --dark:         #0f172a;
+  --muted:        #64748b;
+  --border:       #e2e8f0;
+  --card-bg:      #ffffff;
+  --section-alt:  #f7f9fb;
+  --text:         #0f172a;
+
+  --font-display: 'Syne', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+  --font-mono:    'Space Mono', monospace;
+  --radius-sm:  8px;
+  --radius-md:  14px;
+  --radius-lg:  20px;
+  --radius-xl:  28px;
+  --shadow-sm:  0 2px 8px rgba(0,0,0,.06);
+  --shadow-md:  0 8px 24px rgba(0,0,0,.09);
+  --shadow-lg:  0 20px 48px rgba(0,0,0,.12);
+}
+
+/* ── Dark mode tokens ────────────────────────────── */
+[data-theme="dark"] {
+  --white:        #0f172a;
+  --off-white:    #1e293b;
+  --accent:       #60a5fa;
+  --accent-light: #1e3a5f;
+  --dark:         #f1f5f9;
+  --muted:        #94a3b8;
+  --border:       #334155;
+  --card-bg:      #1e293b;
+  --section-alt:  #162032;
+  --text:         #f1f5f9;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-body);
+  background:var(--white);
+  color:var(--text);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  transition:background .3s, color .3s;
+}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--off-white)}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:10px}
+
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+section{padding:90px 0 70px}
+
+@keyframes ticker    {0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes float     {0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes pulse-dot {0%,100%{box-shadow:0 0 0 0 rgba(59,130,246,.45)}50%{box-shadow:0 0 0 10px rgba(59,130,246,0)}}
+@keyframes fadeSlide {from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes zoomIn    {from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
+@keyframes marquee   {0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+.float-anim{animation:float 5s ease-in-out infinite}
+
+.section-title{font-family:var(--font-display);font-size:clamp(1.7rem,3.5vw,2.3rem);font-weight:800;line-height:1.15;margin-bottom:6px;color:var(--dark)}
+.section-sub{color:var(--muted);font-size:.93rem;margin-bottom:40px}
+
+.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:14px}
+.tag{display:inline-block;padding:2px 10px;border-radius:7px;font-size:.72rem;font-weight:600;background:var(--accent-light);color:var(--accent)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:var(--radius-sm);font-weight:600;font-size:.9rem;cursor:pointer;border:none;transition:all .25s}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{filter:brightness(1.12);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.btn-outline{background:transparent;color:var(--dark);border:2px solid var(--border)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
+
+.card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-lg);transition:transform .3s,box-shadow .3s}
+.card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.6);backdrop-filter:blur(6px);z-index:1200;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal-box{background:var(--card-bg);border-radius:var(--radius-xl);max-width:580px;width:100%;max-height:90vh;overflow-y:auto;padding:36px;position:relative}
+
+@media(max-width:768px){section{padding:60px 0 50px}.section-title{font-size:1.6rem}}
