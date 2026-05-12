@@ -93,3 +93,11 @@ Search for `// ✏️` comments — every editable field is marked.
 | Google Fonts | Syne · DM Sans · Space Mono |
 
 > No backend needed — this is a purely static site. Host it for free on Vercel, Netlify, or GitHub Pages.
+
+## For future updates:
+
+git add .
+
+git commit -m "updated description"
+
+git push origin main
