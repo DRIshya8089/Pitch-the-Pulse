@@ -1,16 +1,16 @@
-// Skills — STATIC grid. Each row = category label + skill pills.
+// Skills — STATIC grid. Each row = category badge + plain green text skills.
+// Category keeps its green highlight box. Skills are plain coloured text with a dot.
 import { motion } from "framer-motion";
 import { SKILLS } from "../../data/siteData";
 
-const ACCENT      = "#22c55e";
-const PILL_BG     = "#f0fdf4";
-const PILL_BORDER = "#bbf7d0";
-const CAT_COLOR   = "#15803d";
-const CAT_BG      = "#dcfce7";
+const ACCENT    = "#22c55e";
+const CAT_COLOR = "#15803d";
+const CAT_BG    = "#dcfce7";
+const CAT_BORDER= "#bbf7d0";
 
 export default function Skills() {
   return (
-    <section id="skills" style={{ background: "var(--off-white)", paddingBottom: 0 }}>
+    <section id="skills" style={{ background: "var(--white)", paddingBottom: 0 }}>
       <div className="container">
         <motion.div
           initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }}
@@ -21,7 +21,6 @@ export default function Skills() {
           <p className="section-sub">Technologies and tools I work with.</p>
         </motion.div>
 
-        {/* Each category is a full row */}
         <div style={{ display:"flex", flexDirection:"column", gap:14, paddingBottom:48 }}>
           {SKILLS.map((cat, ci) => (
             <motion.div
@@ -33,22 +32,19 @@ export default function Skills() {
               style={{
                 display:"flex",
                 alignItems:"center",
-                gap:12,
-                background:"var(--card-bg)",
-                border:"1px solid var(--border)",
-                borderRadius:"var(--radius-md)",
-                padding:"12px 16px",
+                gap:14,
                 flexWrap:"wrap",
+                padding:"10px 0",
               }}
             >
-              {/* Category label — fixed width badge on the left */}
+              {/* Category — keeps green highlight box */}
               <span style={{
                 padding:"5px 14px",
                 borderRadius:999,
                 fontSize:".7rem", fontWeight:800,
                 letterSpacing:".06em", textTransform:"uppercase",
                 background: CAT_BG, color: CAT_COLOR,
-                border:`1.5px solid ${PILL_BORDER}`,
+                border:`1.5px solid ${CAT_BORDER}`,
                 whiteSpace:"nowrap",
                 flexShrink:0,
               }}>
@@ -56,18 +52,17 @@ export default function Skills() {
               </span>
 
               {/* Thin separator */}
-              <div style={{ width:1, height:22, background:"var(--border)", flexShrink:0 }} />
+              <div style={{ width:1, height:18, background:"var(--border)", flexShrink:0 }} />
 
-              {/* Skill pills for this category */}
-              <div style={{ display:"flex", gap:8, flexWrap:"wrap" }}>
+              {/* Skills — plain green text with bullet dot, no box */}
+              <div style={{ display:"flex", gap:18, flexWrap:"wrap", alignItems:"center" }}>
                 {cat.items.map((skill, si) => (
                   <span key={si} style={{
                     display:"inline-flex", alignItems:"center", gap:5,
-                    padding:"5px 13px", borderRadius:999,
-                    fontSize:".78rem", fontWeight:500,
-                    background: PILL_BG, color: ACCENT,
-                    border:`1px solid ${PILL_BORDER}`,
+                    fontSize:".82rem", fontWeight:500,
+                    color: ACCENT,
                   }}>
+                    <span style={{ width:5, height:5, borderRadius:"50%", background:ACCENT, flexShrink:0 }} />
                     {skill}
                   </span>
                 ))}

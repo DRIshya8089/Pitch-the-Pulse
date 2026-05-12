@@ -1,6 +1,4 @@
-// Projects — carousel. Modal has GitHub Repo + LinkedIn More Details buttons.
-// Both link fields (link + linkedinLink) are placeholders in siteData per project.
-
+// Projects — carousel. Modal has no emoji. GitHub + LinkedIn buttons always shown.
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import Modal from "../ui/Modal";
@@ -81,7 +79,7 @@ export default function Projects() {
   const onMouseUp = () => { drag.current.down = false; if (trackRef.current) trackRef.current.style.cursor = "grab"; };
 
   return (
-    <section id="projects" style={{ background:"var(--white)" }}>
+    <section id="projects" style={{ background:"var(--off-white)" }}>
       <div className="container">
         <motion.div initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }} transition={{ duration:0.5 }} style={{ marginBottom:36 }}>
           <h2 className="section-title">Things I've Built</h2>
@@ -101,17 +99,17 @@ export default function Projects() {
       <Modal isOpen={!!active} onClose={() => setActive(null)}>
         {active && (
           <>
-            <div style={{ fontSize:"2.8rem", marginBottom:12 }}>{active.emoji}</div>
-            <div style={{ display:"flex", gap:6, flexWrap:"wrap", marginBottom:12 }}>
+            {/* No emoji — straight to tags and title for concise popup */}
+            <div style={{ display:"flex", gap:6, flexWrap:"wrap", marginBottom:10 }}>
               {active.tags.map(t => <span key={t} className="tag">{t}</span>)}
             </div>
-            <h2 style={{ fontFamily:"var(--font-display)", fontWeight:800, fontSize:"1.4rem", marginBottom:14, color:"var(--dark)" }}>
+            <h2 style={{ fontFamily:"var(--font-display)", fontWeight:800, fontSize:"1.35rem", marginBottom:12, color:"var(--dark)" }}>
               {active.title}
             </h2>
-            <p style={{ color:"var(--muted)", lineHeight:1.8, marginBottom:28 }}>{active.fullDesc}</p>
+            <p style={{ color:"var(--muted)", lineHeight:1.75, marginBottom:24 }}>{active.fullDesc}</p>
 
             <div style={{ display:"flex", gap:12, flexWrap:"wrap" }}>
-              {/* GitHub Repo — always shown; set project.link in siteData */}
+              {/* GitHub Repo — set project.link in siteData */}
               <a
                 href={active.link && active.link !== "#" ? active.link : "https://github.com/DRIshya8089"}
                 target="_blank" rel="noreferrer"
@@ -121,7 +119,7 @@ export default function Projects() {
                 <GitHubIcon /> GitHub Repo
               </a>
 
-              {/* LinkedIn More Details — always shown; set project.linkedinLink in siteData */}
+              {/* LinkedIn More Details — set project.linkedinLink in siteData */}
               <a
                 href={active.linkedinLink && active.linkedinLink !== "#" ? active.linkedinLink : "https://www.linkedin.com/in/drishya-n"}
                 target="_blank" rel="noreferrer"
@@ -131,7 +129,6 @@ export default function Projects() {
                 <LinkedInIcon /> More Details
               </a>
 
-              {/* Live Demo — only if liveLink is set and not placeholder */}
               {active.liveLink && active.liveLink !== "#" && (
                 <a href={active.liveLink} target="_blank" rel="noreferrer" className="btn btn-outline">
                   Live Demo ↗

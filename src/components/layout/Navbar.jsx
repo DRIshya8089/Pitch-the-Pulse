@@ -6,7 +6,7 @@ const NAV_LINKS = [
   { label: "Home",        href: "#home" },
   { label: "Projects",    href: "#projects" },
   { label: "Initiatives", href: "#services" },
-  { label: "Experience",  href: "#experience" },
+  { label: "Experience",  href: "#workjourney" },   // ← fixed: matches <section id="workjourney">
   { label: "Extras",      href: "#extras" },
   { label: "Contact",     href: "#contact" },
 ];
@@ -24,6 +24,19 @@ export default function Navbar({ darkMode, toggleDark }) {
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
+  // Smooth-scroll helper used by mobile drawer links
+  const handleNavClick = (e, href) => {
+    e.preventDefault();
+    setMenuOpen(false);
+    const target = document.querySelector(href);
+    if (target) {
+      // Wait for drawer close animation, then scroll
+      setTimeout(() => {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 60);
+    }
+  };
+
   return (
     <motion.nav
       initial={{ y: -60, opacity: 0 }}
@@ -40,8 +53,8 @@ export default function Navbar({ darkMode, toggleDark }) {
     >
       <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 64 }}>
 
-        {/* ── Gradient site title ── */}
-        <a href="#home" style={{ textDecoration: "none" }}>
+        {/* Gradient site title */}
+        <a href="#home" onClick={e => handleNavClick(e, "#home")} style={{ textDecoration: "none" }}>
           <span style={{
             fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.25rem",
             background: "linear-gradient(90deg, #3b82f6, #22c55e)",
@@ -52,7 +65,7 @@ export default function Navbar({ darkMode, toggleDark }) {
           </span>
         </a>
 
-        {/* ── Desktop links + resume + dark toggle ── */}
+        {/* Desktop links */}
         <div className="nav-desktop" style={{ display: "flex", alignItems: "center", gap: 2 }}>
           {NAV_LINKS.map(l => (
             <a key={l.href} href={l.href}
@@ -70,7 +83,7 @@ export default function Navbar({ darkMode, toggleDark }) {
           </button>
         </div>
 
-        {/* ── Mobile: dark toggle + hamburger ONLY (no duplicate) ── */}
+        {/* Mobile: dark toggle + hamburger */}
         <div className="nav-mobile" style={{ display: "none", gap: 8, alignItems: "center" }}>
           <button onClick={toggleDark}
             style={{ background: "none", border: "1px solid var(--border)", borderRadius: "50%", width: 34, height: 34, cursor: "pointer", color: "var(--dark)", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -87,16 +100,35 @@ export default function Navbar({ darkMode, toggleDark }) {
         </div>
       </div>
 
+      {/* Mobile drawer — uses handleNavClick for proper scroll */}
       <AnimatePresence>
         {menuOpen && (
-          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.28 }}
-            style={{ overflow: "hidden", borderTop: "1px solid var(--border)", background: "var(--white)" }}>
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.28 }}
+            style={{ overflow: "hidden", borderTop: "1px solid var(--border)", background: "var(--white)" }}
+          >
             <div style={{ padding: "12px 24px 20px", display: "flex", flexDirection: "column", gap: 4 }}>
               {NAV_LINKS.map(l => (
-                <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)}
-                  style={{ padding: "10px 14px", borderRadius: "var(--radius-sm)", fontWeight: 500, color: "var(--dark)" }}>{l.label}</a>
+                <a
+                  key={l.href}
+                  href={l.href}
+                  onClick={e => handleNavClick(e, l.href)}
+                  style={{
+                    padding: "10px 14px", borderRadius: "var(--radius-sm)",
+                    fontWeight: 500, color: "var(--dark)",
+                    display: "block", textDecoration: "none",
+                    fontSize: ".95rem",
+                  }}
+                >
+                  {l.label}
+                </a>
               ))}
-              <a href={SITE.resumeLink} target="_blank" rel="noreferrer" className="btn btn-primary" style={{ marginTop: 8 }}>View Resume</a>
+              <a href={SITE.resumeLink} target="_blank" rel="noreferrer" className="btn btn-primary" style={{ marginTop: 8 }}>
+                View Resume
+              </a>
             </div>
           </motion.div>
         )}
